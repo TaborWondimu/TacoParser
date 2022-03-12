@@ -7,6 +7,6 @@ namespace LoggingKata
         void LogError(string log, Exception exception = null);
         void LogWarning(string log);
         void LogInfo(string log);
-        void LogDebug(string log);
+        void LogDebug(string log); // stubbed out methods
     }
 }

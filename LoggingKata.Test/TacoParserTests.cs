@@ -30,14 +30,16 @@ namespace LoggingKata.Test
             //       each representing a TacoBell location
 
             //Arrange
-
+            var longParser = new TacoParser();
             //Act
+            var actual = longParser.Parse(line);
 
             //Assert
+
+
+
+            //TODO: Create a test ShouldParseLatitude
+
         }
-
-
-        //TODO: Create a test ShouldParseLatitude
-
     }
 }
