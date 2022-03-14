@@ -18,6 +18,7 @@
             if (cells.Length < 3)
             {
                 // Log that and return null
+                logger.LogError("ARRAY LENGTH IS LESS THAN 3");
                 // Do not fail if one record parsing fails, return null
                 return null; // TODO Implement
             }

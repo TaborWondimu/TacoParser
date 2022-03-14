@@ -19,9 +19,20 @@ namespace LoggingKata
 
             // use File.ReadAllLines(path) to grab all the lines from your csv file
             // Log and error if you get 0 lines and a warning if you get 1 line
+            
+        
             var lines = File.ReadAllLines(csvPath);
+            if(lines.Length == 0)
+            {
+                logger.LogError("Line is 0 !!! ERROR");
+            }
+             if(lines.Length == 1)
+            {
+                logger.LogWarning("Line is 1!! WARNING!!");
+            }
 
             logger.LogInfo($"Lines: {lines[0]}");
+          
 
             // Create a new instance of your TacoParser class
             var parser = new TacoParser();
@@ -47,22 +58,25 @@ namespace LoggingKata
             for (int i = 0; i < locations.Length; i++)
             {
                  var locA = locations[i];
-                 GeoCoordinate corA = new GeoCoordinate();
-                 
+                 GeoCoordinate corA = new GeoCoordinate(locA.Location.Latitude,locA.Location.Longitude);
            
                 for (int j = 0; i < locations.Length; i++)
                 {
                     var locB = locations[i];
-                    GeoCoordinate corB = new GeoCoordinate();
+                    GeoCoordinate corB = new GeoCoordinate(locB.Location.Latitude, locB.Location.Longitude);
+                   
 
-                    distanceBetween = corA.GetDistanceTo(corB);
+                    
+
+                    if(corA.GetDistanceTo(corB) > distanceBetween)
+                    {
+                        tacoBell1 = locA;
+                        tacoBell2 = locB;
+                    }
                 }
-                if(distanceBetween > 0)
-                {
-                    tacoBell1 = locations[i]; tacoBell2 = locations[i];
-                }
+               
             }
-              
+
             // Create a new corA Coordinate with your locA's lat and long
 
             // Now, do another loop on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)
@@ -74,7 +88,8 @@ namespace LoggingKata
 
             // Once you've looped through everything, you've found the two Taco Bells farthest away from each other.
 
-
+            Console.WriteLine("========================================================================");
+            logger.LogInfo($"These are the two Taco Bells that are farthest away from eachother {tacoBell1.Name}, {tacoBell2.Name}");
             
         }
     }
